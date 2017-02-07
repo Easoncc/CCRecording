@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "TURecorderViewController.h"
 @interface ViewController ()
 
 @end
@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 
@@ -26,4 +27,10 @@
 }
 
 
+- (IBAction)buttonTAP:(id)sender {
+    
+    TURecorderViewController *recorder = [TURecorderViewController new];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:recorder];
+    [self presentViewController:nc animated:YES completion:nil];
+}
 @end

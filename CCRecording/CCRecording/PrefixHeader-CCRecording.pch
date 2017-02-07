@@ -1,0 +1,22 @@
+//
+//  PrefixHeader-CCRecording.pch
+//  CCRecording
+//
+//  Created by chenchao on 2017/2/7.
+//  Copyright © 2017年 chenchao. All rights reserved.
+//
+
+#ifndef PrefixHeader_CCRecording_pch
+#define PrefixHeader_CCRecording_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#define KDeviceWidth   [UIScreen mainScreen].bounds.size.width
+#define KDeviceHeight  [UIScreen mainScreen].bounds.size.height
+#define CCWeakObj(o) __weak typeof(o) o##Weak = o;
+#define CCStrongObj(o) __strong typeof(o) o = o##Weak;
+
+#import <UIKit/UIKit.h>
+#import "UIView+Category.h"
+
+#endif /* PrefixHeader_CCRecording_pch */

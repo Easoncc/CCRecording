@@ -18,118 +18,12 @@ static const int kheight = 44;
 @property (nonatomic ,strong ,readwrite) UIButton *leftButton;
 @property (nonatomic ,strong ,readwrite) UIButton *rightButton;
 @property (nonatomic ,strong ,readwrite) UIButton *saveButton;
-@property (nonatomic ,strong ,readwrite) UIButton *powerButton;
 @property (nonatomic ,strong ,readwrite) UIView *tabView;
 
 @end
 
 @implementation TUVideoUpView{
     NSMutableArray *_layerArray;
-}
-
-- (void)setPowerPermit
-{
-    if(_powerPermit==3){
-        _powerPermit = 1;
-    }else{
-        _powerPermit++;
-    }
-    [self setPowerPermitType:_powerPermit];
-}
-
-- (void)setPowerPermitType:(NSInteger)powerPermit
-{
-    _powerPermit = powerPermit;
-    [[TUVideoManager sharedInstance] setPowerPermit:powerPermit];
-    UILabel * label = (UILabel*)[self.powerButton viewWithTag:2001];
-    if (label) {
-        switch (_powerPermit) {
-            case 1:{
-                label.text = @"公开";
-                break;
-            }
-            case 2:{
-                label.text = @"仅好友可见";
-                break;
-            }
-            case 3:{
-                label.text = @"私密";
-                break;
-            }
-            default:
-                break;
-        }
-        [self setNeedsLayout];
-    }
-}
-
-- (void)layoutSubviews
-{
-//    [self.leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.bottom.mas_equalTo(0);
-//        make.left.mas_equalTo(10);
-//        make.width.mas_greaterThanOrEqualTo(kheight);
-//    }];
-//    
-//    [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.bottom.mas_equalTo(0);
-//        make.right.mas_equalTo(-10);
-//        make.width.mas_greaterThanOrEqualTo(kheight);
-//    }];
-//    
-//    if (_havePermitButton) {
-//        UIImageView * imageView = (UIImageView*)[self.powerButton viewWithTag:2002];
-//        if (imageView) {
-//            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.centerY.mas_equalTo(self.powerButton.mas_centerY);
-//                make.right.equalTo(self.powerButton.mas_right).offset(-6);;
-//                make.width.mas_equalTo(@(14));
-//                make.height.mas_equalTo(@(11));
-//            }];
-//        }
-//        
-//        UILabel * label = (UILabel*)[self.powerButton viewWithTag:2001];
-//        if (label) {
-//            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.top.bottom.mas_equalTo(0);
-//                make.centerY.mas_equalTo(self.powerButton.mas_centerY);
-//                make.right.equalTo(imageView?imageView.mas_left:self.powerButton.mas_right).offset(-6);
-//                make.left.equalTo(self.powerButton.mas_left).offset(6);
-//            }];
-//        }
-//        
-//        [self.powerButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.height.equalTo(@(20));
-//            make.centerY.mas_equalTo(self.rightButton.mas_centerY);
-//            make.right.equalTo(self.rightButton.mas_left).offset(-10);
-//        }];
-//        
-//        [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.bottom.mas_equalTo(0);
-//            make.right.equalTo(self.powerButton.mas_left).offset(-10);
-//            make.width.mas_greaterThanOrEqualTo(kheight);
-//        }];
-//    }else{
-//        [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.bottom.mas_equalTo(0);
-//            make.right.equalTo(self.rightButton.mas_left).offset(-10);
-//            make.width.mas_greaterThanOrEqualTo(kheight);
-//        }];
-//    }
-    
-    
-}
-
-- (void)setHavePermitButton:(BOOL)havePermitButton
-{
-    if (_havePermitButton!=havePermitButton) {
-        _havePermitButton = havePermitButton;
-        if (_havePermitButton&&!_powerButton) {
-            [self addSubview:self.powerButton];
-            [self setPowerPermitType:1];
-        }
-        [self setNeedsLayout];
-    }
 }
 
 - (instancetype)init{
@@ -147,7 +41,6 @@ static const int kheight = 44;
         [[TUVideoManager sharedInstance] setPowerPermit:1];
         if (_havePermitButton) {
             [self addSubview:self.powerButton];
-            [self setPowerPermitType:1];
         }
     }
     return self;
@@ -158,7 +51,7 @@ static const int kheight = 44;
     if (!_leftButton) {
         
         UIButton *button = [UIButton new];
-//        button.frame = CGRectMake(10, 0, kheight, kheight);
+        button.frame = CGRectMake(10, 0, kheight, kheight);
         _leftButton = button;
         
     }
@@ -166,40 +59,12 @@ static const int kheight = 44;
     
 }
 
-- (UIButton *)powerButton{
-    if (!_powerButton) {
-        UIButton * button = [UIButton new];
-        for (UIView * view in button.subviews) {
-            [view removeFromSuperview];
-        }
-        UILabel * titleLabel = [[UILabel alloc] init];
-        titleLabel.tag = 2001;
-        titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.font = [UIFont systemFontOfSize:13.0];
-        
-        UIImageView * imageView = [[UIImageView alloc] init];
-        imageView.tag = 2001;
-        imageView.image = [UIImage imageNamed:@"权限下拉箭头"];
-        
-        [button addSubview:titleLabel];
-        [button addSubview:imageView];
-        
-        button.layer.borderWidth=0.5;
-        button.layer.borderColor=[UIColor whiteColor].CGColor;
-        button.layer.cornerRadius = 10;
-        button.layer.masksToBounds = YES;
-
-        _powerButton = button;
-    }
-    return _powerButton;
-}
-
 - (UIButton *)rightButton{
     
     if (!_rightButton) {
         
         UIButton *button = [UIButton new];
-//        button.frame = CGRectMake(self.width - 10 - kheight, 0, kheight, kheight);
+        button.frame = CGRectMake(self.width - 10 - kheight, 0, kheight, kheight);
         _rightButton = button;
         
     }
@@ -212,7 +77,7 @@ static const int kheight = 44;
         
         UIButton *button = [UIButton new];
         button.hidden = YES;
-//        button.frame = CGRectMake(self.width - 10 - kheight - 5 - kheight*2 , 0, kheight*2, kheight);
+        button.frame = CGRectMake(self.width - 10 - kheight - 5 - kheight*2 , 0, kheight*2, kheight);
         _saveButton = button;
         
     }

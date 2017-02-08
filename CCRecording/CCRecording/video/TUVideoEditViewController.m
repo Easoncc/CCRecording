@@ -237,7 +237,7 @@
             [view.saveButton setImage:[UIImage imageNamed:@"save_location_de"] forState:UIControlStateNormal];
             [view.saveButton setImage:[UIImage imageNamed:@"save_location_high"] forState:UIControlStateHighlighted];
         }else{
-            [view.rightButton setTitle:@"合并编辑" forState:UIControlStateNormal];
+            [view.rightButton setTitle:@"合并" forState:UIControlStateNormal];
         }
         
         view.tabView.hidden = YES;
@@ -402,11 +402,10 @@
             [[TUMBProgressHUDManager sharedInstance]  showHUD:@"合并失败~"];
             return ;
         }
-        [[TUVideoManager sharedInstance] uploadVideoWithURL:_segment.url andtype:2 images:@[[AVAsset thumbnail:[AVAsset assetWithURL:self.segment.url]]] block:^{
-            if ([self.delegate respondsToSelector:@selector(editReleaseSuccess)]) {
-                [self.delegate editReleaseSuccess];
-            }
-        }];
+        if ([self.delegate respondsToSelector:@selector(editReleaseSuccess)]) {
+            [self.delegate editReleaseSuccess];
+        }
+        [self.navigationController popToRootViewControllerAnimated:NO];
         
     }];
 }
@@ -455,11 +454,6 @@
 - (void)appHasGoneInForeground:(NSNotification *)notification{
     [[TUVideoManager sharedInstance] cancelExport];
     [[TUVideoManager sharedInstance] cancelUploadVideo];
-}
-
-- (void)changepowerPermit
-{
-    [_upview setPowerPermit];
 }
 
 - (void)saveClick{
@@ -637,7 +631,7 @@
         self.upview.powerButton.hidden = NO;
     }else{
         self.upview.havePermitButton = NO;
-        [self.upview.rightButton setTitle:@"合并编辑" forState:UIControlStateNormal];
+        [self.upview.rightButton setTitle:@"合并" forState:UIControlStateNormal];
     }
 }
 

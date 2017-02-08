@@ -301,24 +301,18 @@
     
         CCStrongObj(self)
         if (result) {
-            [[TUVideoManager sharedInstance] uploadVideoWithURL:self.recordSession.outputUrl andtype:1 images:@[[AVAsset thumbnail:[AVAsset assetWithURL:self.recordSession.outputUrl]]] block:^{
-                if ([self.delegate respondsToSelector:@selector(previewReleaseSuccess)]) {
-                    [self.delegate previewReleaseSuccess];
-                }
-                self.isUploading = NO;
-                [self autodelloc];
-            }];
+            if ([self.delegate respondsToSelector:@selector(previewReleaseSuccess)]) {
+                [self.delegate previewReleaseSuccess];
+            }
+            self.isUploading = NO;
+            [self autodelloc];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [[TUMBProgressHUDManager sharedInstance] showHUD:@"合成失败~"];
         }
         
     }];
     
-}
-
-- (void)changepowerPermit
-{
-    [_upview setPowerPermit];
 }
 
 - (void)saveClick{

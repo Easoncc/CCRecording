@@ -27,7 +27,8 @@
                                     <constraint firstAttribute="height" constant="100" id="7wH-ki-kJL"/>
                                     <constraint firstAttribute="width" constant="100" id="ix6-LO-wZP"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="拍摄"/>
                                 <connections>
                                     <action selector="buttonTAP:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ooH-XH-dZg"/>
                                 </connections>

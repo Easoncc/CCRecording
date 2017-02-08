@@ -33,7 +33,7 @@ typedef enum {
 @property (nonatomic ,assign) float maxtime;
 
 @property (nonatomic ,strong) SCRecordSession *session;
-- (void)setPowerPermit;
+
 - (void)redLastLine:(int)index;
 - (void)deleteLastLine;
 - (void)resetLine;
